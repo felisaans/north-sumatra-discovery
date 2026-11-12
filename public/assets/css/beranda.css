@@ -1,0 +1,548 @@
+/* ==========================================================================
+   BERANDA — editorial travel-magazine homepage (redesign terbaru)
+   Token, navbar, tombol, footer & region-chip bersama ada di style.css
+   ========================================================================== */
+
+/* HERO — frame video berbentuk KUBAH masjid + kubah warna di belakangnya; kartu & badge sedikit miring.
+   Rotasi dibuat kecil (2-3deg) supaya terasa editorial, bukan berantakan.
+   GANTI DI SINI: --hero-miring = sudut frame video (0deg = tegak). */
+.hero-editorial {
+    --hero-miring: 2.6deg;
+    --hero-slab: var(--c-mint);
+    padding: 160px 0 110px 0;
+    background: radial-gradient(circle at 80% 20%, var(--color-sky-light) 0%, var(--color-mist) 60%);
+    overflow-x: clip;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - clamp(16px, 3vw, 40px)), 0 100%);   /* tepi bawah diagonal tipis */
+}
+:root[data-theme="dark"] .hero-editorial { --hero-slab: var(--c-night); }
+
+/* Latar foto hero: gambar poster + tint tipis warna latar halaman (ikut tema terang/gelap).
+   GANTI DI SINI: --hero-tint = kekuatan tint (0 = foto asli, 1 = tertutup penuh). Tint rata di seluruh foto supaya tampilan tidak ramai. */
+.hero-editorial--foto { --hero-tint: 0.66; }
+.hero-editorial--foto::before,
+.hero-editorial--foto::after {
+    z-index: 0;
+    background: color-mix(in srgb, var(--color-mist) calc(var(--hero-tint) * 100%), transparent);   /* tint RATA (tanpa gradasi): gelap di tema gelap, terang di tema terang */
+}
+.hero-editorial--foto { position: relative; }
+.hero-editorial--foto > .container { position: relative; z-index: 1; }
+.hero-tag-pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    background-color: var(--color-white);
+    padding: 8px 18px; border-radius: var(--radius-pill);
+    font-size: 0.85rem; font-weight: 600; color: var(--color-teal);
+    box-shadow: 0 4px 20px rgba(41, 33, 43, 0.06);
+    border: 0;
+    margin-bottom: 24px;
+}
+.tag-dot { width: 8px; height: 8px; background-color: var(--c-mint); border: 0; border-radius: 1px; }
+.hero-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    font-weight: 700; line-height: 1.12;
+    color: var(--color-teal);
+    margin-bottom: 24px;
+}
+.hero-heading em {
+    font-style: italic;
+    background: linear-gradient(120deg, var(--grad-em-a) 0%, var(--grad-em-b) 100%);
+    background-clip: text; -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+.hero-description { font-size: 1.1rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 36px; max-width: 520px; }
+.search-box-pill {
+    background-color: var(--color-white);
+    border-radius: var(--radius-pill);
+    padding: 8px 10px 8px 20px;
+    box-shadow: 0 15px 35px rgba(41, 33, 43, 0.08);
+    border: 0;
+    max-width: 540px;
+}
+.search-box-pill .form-control { border: none; box-shadow: none; background: transparent; color: var(--color-teal); }
+
+.hero-visual-container { position: relative; padding: 28px 26px 40px; max-width: 520px; margin-inline: auto; isolation: isolate; }
+.hero-slab {                                  /* kubah warna di belakang, bergeser ke kanan-bawah (gema bentuk kubah) */
+    position: absolute; inset: 9% -1% 2% 17%; z-index: 0;
+    background: var(--hero-slab);
+    clip-path: url(#kubah-hero);
+}
+/* KUBAH MASJID — 3 lapis: bayangan (filter, tidak ikut ter-clip) > cincin putih > isi video/poster */
+.hero-kubah-bayang {
+    position: relative; z-index: 1;
+    filter: drop-shadow(10px 14px 0 rgba(41, 33, 43, 0.14)) drop-shadow(0 18px 30px rgba(41, 33, 43, 0.18));
+}
+.hero-kubah {
+    width: 100%; aspect-ratio: 5 / 6;               /* GANTI DI SINI: rasio kubah (makin kecil angka kedua = makin pendek) */
+    padding: 6px 6px 0;                              /* tebal cincin putih */
+    box-sizing: border-box;
+    background: var(--color-white);
+    clip-path: url(#kubah-hero);
+}
+.hero-main-frame {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    clip-path: url(#kubah-hero);
+    background: var(--surface-aksen);
+}
+/* Hero video portrait 9:16 dalam kubah -> cover (bagian ujung atas kubah menyempit, subjek utama di tengah-bawah tetap terlihat) */
+.hero-main-frame img,
+.hero-main-frame video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.hero-floating-card {
+    position: absolute; z-index: 2; bottom: 6px; left: -14px;
+    background: var(--color-white);
+    padding: 16px 22px; border-radius: var(--radius-md);
+    box-shadow: 0 15px 35px rgba(41, 33, 43, 0.16);
+    display: flex; align-items: center; gap: 16px;
+    max-width: 290px;
+    border-left: 4px solid var(--c-mint);
+    transform: rotate(calc(var(--hero-miring) * -0.7));
+}
+.floating-icon {
+    width: 48px; height: 48px; border-radius: var(--radius-pill);
+    background-color: rgba(244, 197, 213, 0.55);
+    color: var(--color-accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+}
+.hero-badge-top {
+    position: absolute; z-index: 2; top: 44px; right: -6px;
+    background: rgba(248, 247, 241, 0.94);
+    backdrop-filter: blur(8px);
+    padding: 10px 18px; border-radius: var(--radius-pill);
+    font-size: 0.85rem; font-weight: 700;
+    box-shadow: 0 10px 25px rgba(41, 33, 43, 0.12);
+    color: var(--color-teal);
+    border: 0;
+    transform: rotate(calc(var(--hero-miring) * 1.2));
+}
+
+/* BERITA TICKER (ringkas, dari Supabase) */
+.section-berita { padding: 50px 0 10px; }
+.news-ticker-card {
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    border: 0;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.news-ticker-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+
+/* ------------------------------------------------------------------
+   BERITA MARQUEE — geser otomatis ke kiri, looping tanpa putus (CSS-only, tanpa JS)
+   Auto-scrolling news strip: 2 identical groups, track slides -50% then restarts seamlessly.
+   --n  = jumlah kartu per grup (diisi Blade) -> kecepatan konstan berapa pun jumlah berita
+   ------------------------------------------------------------------ */
+.berita-marquee {
+    overflow: hidden;
+    padding: 14px 0 22px;                      /* ruang untuk bayangan & efek hover kartu */
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+.berita-track {
+    --detik-per-kartu: 6s;                     /* GANTI DI SINI untuk mempercepat / memperlambat */
+    display: flex; width: max-content;
+    animation: berita-geser calc(var(--n, 6) * var(--detik-per-kartu)) linear infinite;
+    will-change: transform;
+}
+.berita-group { display: flex; flex: none; }
+.berita-item { flex: none; width: clamp(270px, 28vw, 380px); padding-right: 24px; }   /* padding (bukan gap) -> -50% tepat */
+.berita-item .news-ticker-card { height: 100%; }
+
+@keyframes berita-geser {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+/* jeda saat kursor di atas, kartu difokus, atau jari menekan (mobile) */
+.berita-marquee:hover .berita-track,
+.berita-marquee:focus-within .berita-track,
+.berita-marquee:active .berita-track { animation-play-state: paused; }
+
+@media (max-width: 575.98px) {
+    .berita-item { width: 80vw; padding-right: 16px; }
+    .berita-track { --detik-per-kartu: 7s; }
+}
+
+/* reduced motion: tanpa animasi -> strip bisa digeser manual (swipe/scroll), salinan disembunyikan */
+@media (prefers-reduced-motion: reduce) {
+    .berita-marquee {
+        overflow-x: auto; scroll-snap-type: x proximity;
+        -webkit-mask-image: none; mask-image: none;
+    }
+    .berita-track { animation: none; will-change: auto; }
+    .berita-group[data-klon] { display: none; }
+    .berita-item { scroll-snap-align: start; }
+}
+
+/* FEATURED */
+.section-featured-stories { padding: 100px 0 0; background-color: var(--color-mist); }
+/* Blok sorotan: selebar layar, dipisah garis tipis (bukan kartu berbingkai) */
+.featured-block {
+    background: var(--color-white);
+    border-radius: 0;
+    padding: clamp(44px, 6vw, 76px) 0;
+    border: 0; border-top: 0;
+    box-shadow: none;
+    margin-bottom: 0;
+}
+.featured-block:last-of-type { border-bottom: 0; }
+
+/* ------------------------------------------------------------------
+   LATAR GAMBAR KARTU EDITORIAL — gambar online, BLUR di sisi VIDEO, sisi teks tetap jelas
+   Image background (hotlinked): progressive blur on the VIDEO side that fades out toward the text side.
+   Lapisan / layers (satu gambar saja, tanpa unduhan tambahan):
+     img       : gambar tajam
+     ::before  : backdrop-filter blur, di-mask -> kuat di sisi video, hilang ke arah teks
+     ::after   : gradient penjamin kontras (tipis di sisi video, lebih pekat di sisi teks)
+   Teks baru berganti warna setelah gambar benar-benar termuat (class .latar-aktif).
+   ------------------------------------------------------------------ */
+.featured-block { position: relative; overflow: hidden; isolation: isolate; }
+.featured-bg {
+    --blur-sisi-video: 14px;                   /* GANTI DI SINI: kekuatan blur di sisi video */
+    position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+}
+.featured-bg img {
+    position: relative; z-index: 0;
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    opacity: 0; transition: opacity 0.9s ease; /* muncul halus setelah termuat */
+}
+.featured-bg img.is-loaded { opacity: 1; }
+.featured-bg::before {                          /* blur progresif / progressive blur */
+    content: ''; position: absolute; inset: -24px; z-index: 1;   /* diperlebar agar tepi blur tidak memudar */
+    -webkit-backdrop-filter: blur(var(--blur-sisi-video)); backdrop-filter: blur(var(--blur-sisi-video));
+}
+.featured-bg::after { content: ''; position: absolute; inset: 0; z-index: 2; }
+
+/* scrim: sisi teks sengaja tidak terlalu pekat supaya gambar tetap terlihat; kontras dibantu text-shadow */
+.tema-gelap { --scrim-lembut: rgba(3, 10, 13, 0.22); --scrim-kuat: rgba(3, 10, 13, 0.64); }
+.tema-terang { --scrim-lembut: rgba(255, 255, 255, 0.2); --scrim-kuat: rgba(255, 255, 255, 0.78); }
+
+/* desktop: video di kiri -> blur di kiri; video di kanan -> blur di kanan */
+.featured-block[data-sisi-teks="kanan"] .featured-bg::before {
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 42%, transparent 66%);
+            mask-image: linear-gradient(to right, #000 0%, #000 42%, transparent 66%);
+}
+.featured-block[data-sisi-teks="kiri"] .featured-bg::before {
+    -webkit-mask-image: linear-gradient(to left, #000 0%, #000 42%, transparent 66%);
+            mask-image: linear-gradient(to left, #000 0%, #000 42%, transparent 66%);
+}
+.featured-block[data-sisi-teks="kanan"] .featured-bg::after { background: linear-gradient(to right, var(--scrim-lembut) 0%, var(--scrim-kuat) 70%); }
+.featured-block[data-sisi-teks="kiri"]  .featured-bg::after { background: linear-gradient(to left,  var(--scrim-lembut) 0%, var(--scrim-kuat) 70%); }
+
+/* mobile (1 kolom): video di atas -> blur di atas, teks di bawah tetap jelas */
+@media (max-width: 991.98px) {
+    .featured-block[data-sisi-teks] .featured-bg::before {
+        -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 34%, transparent 62%);
+                mask-image: linear-gradient(to bottom, #000 0%, #000 34%, transparent 62%);
+    }
+    .featured-block[data-sisi-teks] .featured-bg::after { background: linear-gradient(to bottom, var(--scrim-lembut) 0%, var(--scrim-lembut) 28%, var(--scrim-kuat) 62%); }
+}
+
+.featured-title, .featured-excerpt, .featured-meta { transition: color 0.6s ease; }
+
+/* tema GELAP aktif -> teks cerah / dark image -> light text */
+.featured-block.latar-aktif.tema-gelap .featured-title { color: #fff; text-shadow: 0 2px 14px rgba(0, 0, 0, 0.3); }
+.featured-block.latar-aktif.tema-gelap .featured-excerpt { color: rgba(255, 255, 255, 0.92); text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45); }
+.featured-block.latar-aktif.tema-gelap .featured-meta { color: rgba(255, 255, 255, 0.88); text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45); }
+.featured-block.latar-aktif.tema-gelap .featured-meta .text-teal { color: var(--color-meadow) !important; }
+
+/* tema TERANG aktif -> teks tetap gelap, dipertegas sedikit / light image -> keep dark text */
+.featured-block.latar-aktif.tema-terang .featured-excerpt,
+.featured-block.latar-aktif.tema-terang .featured-meta { color: var(--color-teal); }
+.featured-img-frame { border-radius: var(--radius-md); overflow: hidden; height: 100%; min-height: 340px; position: relative; }
+.featured-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+.badge-featured-category {
+    position: absolute; top: 20px; left: 20px;
+    background: rgba(41, 33, 43, 0.42); color: #FFFFFF;
+    -webkit-backdrop-filter: blur(10px) saturate(140%); backdrop-filter: blur(10px) saturate(140%);
+    border: 0;
+    box-shadow: none;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    font-size: 0.78rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    padding: 6px 14px; border-radius: var(--radius-pill);
+    z-index: 2;
+}
+
+.featured-title { color: #fff; text-shadow: 0 2px 14px rgba(0, 0, 0, 0.3); }
+.featured-block.latar-aktif.tema-gelap .featured-excerpt { color: rgba(255, 255, 255, 0.92); text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45); }
+.featured-block.latar-aktif.tema-gelap .featured-meta { color: rgba(255, 255, 255, 0.88); text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45); }
+.featured-block.latar-aktif.tema-gelap .featured-meta .text-teal { color: var(--color-meadow) !important; }
+
+/* tema TERANG aktif -> teks tetap gelap, dipertegas sedikit / light image -> keep dark text */
+.featured-block.latar-aktif.tema-terang .featured-excerpt,
+.featured-block.latar-aktif.tema-terang .featured-meta { color: var(--color-teal); }
+.featured-img-frame { border-radius: var(--radius-md); overflow: hidden; height: 100%; min-height: 340px; position: relative; }
+.featured-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+.badge-featured-category {
+    position: absolute; top: 20px; left: 20px;
+    background: rgba(41, 33, 43, 0.9); color: var(--c-mint);
+    border: 0;
+    font-size: 0.78rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    padding: 6px 16px; border-radius: var(--radius-pill);
+    z-index: 2;
+}
+.badge-featured-category.accent-sky { color: var(--c-mint); }
+.featured-title { font-family: var(--font-heading); font-size: clamp(1.7rem, 2.5vw, 2.3rem); font-weight: 700; color: var(--color-teal); line-height: 1.25; margin-bottom: 16px; }
+.featured-excerpt { font-size: 1rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 24px; }
+.featured-meta { display: flex; gap: 20px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 28px; }
+.featured-meta span { display: flex; align-items: center; gap: 6px; }
+
+/* ------------------------------------------------------------------
+   SOROTAN EDITORIAL — video dengan frame fleksibel (ikut aspect ratio footage)
+   Consistent layout, flexible framing: ukuran frame ditentukan oleh rasio asli MP4,
+   diisi lewat CSS variable --vid-w / --vid-h (dari config/video.php), jadi TIDAK ada crop / bar / stretch.
+   --vid-max-w : batas lebar frame (untuk video portrait supaya tidak terlalu tinggi)
+   ------------------------------------------------------------------ */
+.featured-video-frame {
+    --vid-max-w: 100%;
+    position: relative; overflow: hidden;
+    margin-inline: auto;
+    border-radius: var(--radius-md);
+    background: var(--surface-aksen);                    /* warna dasar sebelum poster muncul */
+    aspect-ratio: var(--vid-w) / var(--vid-h);
+    /* tidak pernah lebih tinggi dari 78% layar -> portrait tidak "menelan" layar */
+    width: min(100%, var(--vid-max-w), calc(78vh * var(--vid-w) / var(--vid-h)));
+    width: min(100%, var(--vid-max-w), calc(78dvh * var(--vid-w) / var(--vid-h)));
+}
+.featured-video-frame video { display: block; width: 100%; height: 100%; object-fit: cover; } /* rasio frame = rasio footage -> cover == tanpa crop; poster (gambar latar) ikut mengisi penuh */
+.featured-video-frame img { display: block; width: 100%; height: 100%; object-fit: cover; } /* gambar editorial mengisi frame (menggantikan video) */
+.featured-video-frame.is-portrait { --vid-max-w: 340px; }   /* GANTI DI SINI bila ingin portrait lebih lebar/sempit */
+@media (max-width: 991px) {
+    .featured-video-frame.is-portrait { --vid-max-w: 320px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .featured-bg img, .featured-title, .featured-excerpt, .featured-meta { transition: none; }
+}
+
+/* DISCOVER */
+.section-discover { padding: 90px 0; background-color: var(--color-sky-light); border-top: 0; border-bottom: 0; }
+.section-discover-budaya { padding: 90px 0; background-color: var(--color-mist); }
+.discovery-card-modern {
+    background: var(--color-white);
+    border-radius: var(--radius-md); overflow: hidden;
+    border: 0;
+    box-shadow: var(--shadow-soft);
+    height: 100%; display: flex; flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.discovery-card-modern:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+.discovery-img-wrapper { position: relative; height: 220px; overflow: hidden; }
+.discovery-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+.card-category-tag {
+    position: absolute; top: 14px; left: 14px;
+    background: rgba(41, 33, 43, 0.9);
+    color: var(--c-mint);
+    padding: 5px 14px; border-radius: var(--radius-pill);
+    font-size: 0.75rem; font-weight: 600;
+    z-index: 2;
+}
+.card-category-tag.tag-budaya { background: rgba(244, 197, 213, 0.95); color: #29212B; }
+.card-title-link { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; color: var(--color-teal); text-decoration: none; }
+
+/* EDITORIAL IDENTITY — section dengan tepi atas/bawah diagonal + kolase foto miring bergaya cetak.
+   Kemiringan dijaga kecil; hanya satu hal "bergerak" di sini: kolase. */
+.section-editorial-identity {
+    --miring-tepi: clamp(18px, 3vw, 44px);
+    padding: calc(100px + var(--miring-tepi)) 0;
+    background-color: var(--surface-identitas); color: var(--c-porcelain);
+    border-radius: 0; margin: 40px 0; overflow: hidden;
+    clip-path: polygon(0 var(--miring-tepi), 100% 0, 100% calc(100% - var(--miring-tepi)), 0 100%);
+}
+.section-editorial-identity .text-meadow { color: var(--identitas-eyebrow) !important; }
+.section-editorial-identity .text-light { opacity: 1 !important; color: var(--c-porcelain) !important; }
+.collage-wrapper { position: relative; padding: 30px 24px 50px 20px; isolation: isolate; }
+.collage-slab {                              /* blok tipis di belakang kolase, miring searah foto kecil */
+    position: absolute; inset: 14% 4% 6% 22%; z-index: 0;
+    background: rgba(244, 197, 213, 0.2);
+    border: 0;
+    transform: rotate(4deg);
+}
+.collage-main {
+    position: relative; z-index: 1; margin: 0; width: 88%;
+    border-radius: var(--radius-md); overflow: hidden;
+    border: 7px solid var(--c-porcelain);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: rotate(-2.4deg);
+}
+.collage-main img { display: block; width: 100%; height: 440px; object-fit: cover; }
+.collage-sub {
+    position: absolute; z-index: 2; margin: 0; bottom: 6px; right: 6px; width: 52%;
+    border-radius: var(--radius-md); overflow: hidden;
+    border: 6px solid var(--c-porcelain);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    transform: rotate(3.2deg);
+}
+.collage-sub img { display: block; width: 100%; height: 210px; object-fit: cover; }
+.identity-bullet { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+.identity-bullet + .identity-bullet { margin-left: 28px; }   /* geser selangkah: ritme diagonal halus */
+.identity-bullet-icon { width: 38px; height: 38px; border-radius: var(--radius-pill); background: var(--c-mint); color: var(--c-ink); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* EXPERIENCE */
+.section-community { padding: 90px 0; background-color: var(--color-mist); }
+.experience-card {
+    --experience-text: #FFFFFF;
+    --experience-muted: rgba(255, 255, 255, 0.85);
+    position: relative; min-height: 520px;
+    border-radius: var(--radius-lg); overflow: hidden;
+    background-size: cover; background-position: center;
+    box-shadow: var(--shadow-hover);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 0;
+    border: 0;
+}
+.experience-overlay { display: none; }                 /* tidak dipakai lagi: gelapnya hanya di gradasi bawah (.experience-caption) */
+.experience-header { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 1.75rem 0; }
+.experience-tag {
+    background: rgba(3, 10, 13, 0.38);
+    -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
+    border: 0;
+    color: #FFFFFF;
+    padding: 8px 18px; border-radius: var(--radius-pill);
+    font-size: 0.85rem; font-weight: 600;
+}
+.experience-body { position: relative; z-index: 2; margin-top: auto; }
+/* Keterangan di BAWAH foto: gradasi gelap tipis (pekat di dasar -> hilang ke atas), tanpa kotak / kaca.
+   GANTI DI SINI: angka 0.78 / 0.55 = kegelapan; 5rem (padding atas) = tinggi area gradasi. */
+.experience-caption {
+    background: linear-gradient(to top, rgba(3, 10, 13, 0.78) 0%, rgba(3, 10, 13, 0.55) 55%, rgba(3, 10, 13, 0) 100%);
+    padding: 5rem 1.75rem 1.5rem;
+}
+.experience-place { margin: 0 0 0.5rem; font-size: 0.95rem; font-weight: 600; color: var(--experience-text); display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.experience-stars { color: var(--c-star); letter-spacing: 2px; }            /* bintang kuning */
+.experience-stars-kosong { color: rgba(255, 255, 255, 0.45); }
+.experience-quote {
+    font-family: inherit; font-style: normal;                          /* font biasa, bukan serif miring */
+    font-size: 1.05rem; font-weight: 400;
+    color: var(--experience-text);
+    line-height: 1.6; margin-bottom: 1.1rem;
+}
+.experience-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 0; padding-top: 0.25rem; }
+.experience-user { display: flex; align-items: center; gap: 1rem; }
+.experience-avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2.5px solid var(--color-meadow); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+.experience-user-name { font-weight: 700; font-size: 1.05rem; color: var(--experience-text); margin: 0; }
+.experience-user-role { font-size: 0.85rem; color: var(--experience-muted); margin: 0; }
+.experience-rating { display: flex; align-items: center; gap: 4px; color: var(--c-star); background: var(--experience-pill-bg); padding: 6px 14px; border-radius: var(--radius-pill); font-size: 0.88rem; border: 0; }
+.carousel-nav-btn {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--color-white);
+    border: 0;
+    color: var(--color-teal);
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-soft);
+}
+.carousel-nav-btn:hover { background: var(--surface-aksen); color: var(--accent-on-aksen); }
+
+/* CTA */
+.section-closing-cta {
+    position: relative; padding: 120px 0;
+    background: linear-gradient(rgba(41, 33, 43, 0.293), rgba(41, 33, 43, 0.699)),
+                url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
+    background-size: cover; background-position: center;
+    background-attachment: fixed;
+    color: var(--c-porcelain);
+    border-radius: 0;
+}
+.cta-heading { font-family: var(--font-heading); font-size: clamp(2.2rem, 4.5vw, 3.5rem); font-weight: 700; margin-bottom: 20px; color: var(--c-porcelain); }
+
+/* MODAL UNGGAH PENGALAMAN */
+.upload-dropzone {
+    border: 2px dashed rgba(var(--rgb-teal), 0.25);
+    border-radius: var(--radius-md);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background: rgba(248, 232, 208, 0.4);
+}
+.upload-dropzone:hover, .upload-dropzone.dragover { border-color: var(--color-teal); background: rgba(244, 197, 213, 0.25); }
+.upload-dropzone i { font-size: 2rem; color: var(--color-teal); margin-bottom: 0.5rem; }
+.avatar-info-card {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, rgba(244, 197, 213, 0.35), rgba(244, 197, 213, 0.25));
+    border: 0;
+    border-radius: var(--radius-md);
+}
+.avatar-info-card img, .avatar-info-avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2.5px solid var(--color-white); box-shadow: 0 4px 12px rgba(41, 33, 43, 0.15); }
+/* lingkaran inisial: dipakai saat foto Gravatar tidak ada (fallback dari email) */
+.avatar-initial {
+    border-radius: 50%; flex: none;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--color-teal); color: var(--color-mist);
+    font-weight: 700; letter-spacing: 0.5px;
+}
+.not-logged-banner {
+    background: rgba(255, 200, 200, 0.35);
+    border: 0;
+    color: var(--danger-text);
+    padding: 0.85rem 1.15rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 991px) {
+    .hero-editorial { --hero-miring: 1.8deg; padding-bottom: 90px; }
+    .hero-visual-container { margin-top: 40px; }
+    .collage-main { width: 100%; }
+    .collage-main img { height: 320px; }
+    .collage-sub { position: relative; bottom: auto; right: auto; width: 62%; margin: -56px 0 0 auto; }
+    .collage-sub img { height: 170px; }
+    .identity-bullet + .identity-bullet { margin-left: 14px; }
+    .featured-block { padding: 44px 0; }
+}
+@media (max-width: 575.98px) {
+    .hero-visual-container { padding: 20px 14px 36px; }
+    .hero-floating-card { left: -4px; padding: 12px 16px; max-width: 250px; }
+    .hero-badge-top { right: 0; top: 30px; }
+}
+@media (max-width: 767.98px) {
+    .experience-card { min-height: 460px; }
+    .experience-header { padding: 1rem 1.25rem 0; }
+    .experience-caption { padding: 3.5rem 1.25rem 1.25rem; }
+    .experience-quote { font-size: 1rem; }
+    .experience-footer { flex-direction: column; align-items: flex-start; }
+}
+
+.section-closing-cta .btn-aceh-outline:hover { background: #FFFFFF; border-color: #FFFFFF; color: var(--c-ink); }
+
+/* ==========================================================================
+   MARQUEE GENERIK (Kuliner Populer & Budaya Pilihan) — dikendalikan assets/js/marquee.js
+   Progressive enhancement:
+     tanpa JS / reduced-motion -> strip bisa digeser manual (swipe/scroll), tanpa salinan
+     dengan JS                 -> kelas .is-live: 2 grup identik, track geser -50% lalu ulang mulus
+   Variabel: --mq-dur (detik, diisi JS dari lebar grup supaya kecepatan konstan)
+   Arah    : .mq-kanan = geser ke kanan; default geser ke kiri
+   ========================================================================== */
+.mq {
+    overflow-x: auto; scroll-snap-type: x proximity;
+    padding: 18px 0 28px;
+    scrollbar-width: thin;
+}
+.mq-track { display: flex; width: max-content; }
+.mq-group { display: flex; flex: none; }
+.mq-item { flex: none; width: clamp(260px, 26vw, 340px); padding-right: 24px; scroll-snap-align: start; }
+.mq-item > * { height: 100%; }
+.mq.is-live {
+    overflow: hidden; scroll-snap-type: none;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+.mq.is-live .mq-track { animation: mq-geser var(--mq-dur, 40s) linear infinite; will-change: transform; }
+.mq.is-live.mq-kanan .mq-track { animation-direction: reverse; }
+.mq.is-live:hover .mq-track,
+.mq.is-live:focus-within .mq-track,
+.mq.is-live:active .mq-track { animation-play-state: paused; }
+.mq.is-kosong { display: none; }
+@keyframes mq-geser {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+@media (max-width: 575.98px) {
+    .mq-item { width: 78vw; padding-right: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .mq.is-live .mq-track { animation: none; }
+}

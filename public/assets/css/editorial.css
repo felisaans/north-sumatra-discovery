@@ -1,0 +1,458 @@
+/* ==========================================================================
+   LAPISAN EDITORIAL — dimuat SETELAH CSS halaman, SEBELUM dark.css
+   1. Bentuk: tidak ada pill / lingkaran dekoratif; semua persegi + radius kecil.
+   2. Warna semantik: bintang = kuning, suka = merah, pin lokasi = hijau.
+   3. Tombol kaca (glassy) untuk Sorotan Editorial.
+   4. Komponen kecil yang dipakai ulang (badge berita, tombol favorit).
+   ========================================================================== */
+
+/* ---------- 1. BENTUK ---------- */
+.rounded-pill { border-radius: var(--radius-pill) !important; }
+.skip-link { border-radius: var(--radius-pill); }
+/* PENGECUALIAN: elemen yang memang harus bulat — ikon brand, avatar/ikon user, toggle, ikon bulat, titik */
+.tag-dot, .tema-toggle, .brand-icon, .floating-icon, .identity-bullet-icon, .carousel-nav-btn,
+.experience-avatar, .avatar-info-card img, .avatar-info-avatar, .avatar-initial, .admin-avatar,
+.rounded-circle { border-radius: 50% !important; }
+.cari-chip span { border-radius: 2px; }
+.experience-rating, .experience-tag { border-radius: var(--radius-pill); }
+
+/* ---------- 2. WARNA SEMANTIK ---------- */
+.fa-star, .ico-bintang { color: var(--c-star) !important; }
+.fa-star { filter: drop-shadow(0 0 0.6px rgba(41, 33, 43, 0.6)); }   /* kontur tipis agar kuning terbaca di latar terang */
+.fa-heart, .ico-suka { color: var(--c-heart) !important; }
+.fa-location-dot, .fa-map-pin, .ico-lokasi { color: var(--c-pin) !important; }
+/* pin di atas panel gelap/foto: pakai hijau paling cerah */
+.dest-region-tag .fa-location-dot, .experience-tag .fa-location-dot, .card-category-tag .fa-location-dot,
+.featured-block.latar-aktif .fa-map-pin { color: var(--c-mint) !important; }
+
+/* ---------- 3. TOMBOL KACA ---------- */
+.btn-aceh-glass {
+    --glass-bg: rgba(84, 32, 95, 0.12);
+    --glass-bd: rgba(var(--rgb-teal), 0.4);
+    --glass-fg: var(--color-teal);
+    --glass-shadow: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 12px 26px; font-weight: 600; letter-spacing: 0.2px;
+    background: var(--glass-bg);
+    color: var(--glass-fg);
+    border: 0;
+    border-radius: var(--radius-pill);
+    -webkit-backdrop-filter: blur(12px) saturate(150%); backdrop-filter: blur(12px) saturate(150%);
+    box-shadow: 0 8px 24px var(--glass-shadow, transparent);
+    transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.btn-aceh-glass .fa-arrow-right { transition: transform 0.25s ease; }
+.btn-aceh-glass:hover, .btn-aceh-glass:focus-visible {
+    background: var(--glass-bg-hover, rgba(84, 32, 95, 0.22));
+    color: var(--glass-fg);
+    transform: translateY(-2px);
+}
+.btn-aceh-glass:hover .fa-arrow-right, .btn-aceh-glass:focus-visible .fa-arrow-right { transform: translateX(4px); }
+.btn-aceh-glass:focus-visible { outline: 3px solid var(--c-mint); outline-offset: 2px; }
+
+/* di atas gambar gelap: kaca putih, teks putih */
+.featured-block.latar-aktif.tema-gelap .btn-aceh-glass {
+    --glass-bg: rgba(248, 232, 208, 0.16); --glass-bd: rgba(248, 232, 208, 0.5); --glass-fg: #FFFFFF;
+    --glass-bg-hover: rgba(248, 232, 208, 0.3); --glass-shadow: rgba(0, 20, 8, 0.28);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+}
+/* di atas gambar terang: kaca gelap, teks Evergreen */
+.featured-block.latar-aktif.tema-terang .btn-aceh-glass {
+    --glass-bg: rgba(41, 33, 43, 0.1); --glass-bd: rgba(41, 33, 43, 0.42); --glass-fg: #29212B;
+    --glass-bg-hover: rgba(41, 33, 43, 0.2);
+}
+
+/* ---------- 4. KOMPONEN KECIL ---------- */
+.badge-berita {
+    display: inline-block;
+    background: rgba(244, 197, 213, 0.6); color: var(--c-ink);
+    border-radius: var(--radius-pill);
+    padding: 4px 12px; font-size: 0.75rem; font-weight: 700;
+}
+.btn-aceh-saved {
+    background: rgba(214, 40, 57, 0.18); color: var(--text-dark);
+    border: 0; border-radius: var(--radius-pill);
+    padding: 10px 24px; font-weight: 600;
+}
+.btn-aceh-saved:hover { background: rgba(214, 40, 57, 0.2); color: var(--text-dark); }
+.btn-aceh-heart {
+    background: rgba(var(--rgb-teal), 0.09); color: var(--text-dark);
+    border: 0; border-radius: var(--radius-pill);
+    padding: 10px 24px; font-weight: 600;
+}
+.btn-aceh-heart:hover { background: rgba(214, 40, 57, 0.08); color: var(--text-dark); }
+
+/* ==========================================================================
+   5. MATERIAL KACA — "slight glassy", tetap tembus pandang
+   Kaca butuh sesuatu di belakangnya: section Discover & Berita diberi blob warna lembut
+   (lihat bagian 6) sehingga kartu yang bergeser di atasnya benar-benar terlihat tembus.
+   ========================================================================== */
+.discovery-card-modern, .news-ticker-card, .hero-floating-card, .dest-content-box, .region-chip,
+.search-box-pill, .carousel-nav-btn, .card-category-tag, .dest-region-tag {
+    -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+}
+.discovery-card-modern, .news-ticker-card {
+    background: var(--glass-bg);
+    border: 0;
+    box-shadow: var(--shadow-soft);
+}
+.hero-floating-card { background: var(--glass-bg-kuat);  }
+.hero-badge-top { background: var(--glass-bg-kuat); border: 0; -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur); }
+.dest-content-box { background: var(--glass-bg-kuat); border: 0; }   /* menimpa foto -> tembus */
+.region-chip { background: var(--glass-bg); }
+.region-chip.active, .region-chip:hover { background: var(--surface-aksen); }
+.search-box-pill { background: var(--glass-bg-kuat); }
+.carousel-nav-btn { background: var(--glass-bg-kuat); }
+/* tag di atas foto: kaca gelap */
+.card-category-tag, .dest-region-tag {
+    background: rgba(41, 33, 43, 0.5); color: #FFFFFF;
+    box-shadow: none;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+}
+.card-category-tag.tag-budaya { background: rgba(244, 197, 213, 0.6); color: #29212B; text-shadow: none; border-color: rgba(255, 255, 255, 0.5); }
+.badge-kategori, .badge-budaya, .badge-berita { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+
+/* ---------- 6. LATAR BLOB (bahan yang "ditembus" kaca) ---------- */
+.section-berita, .section-discover, .section-discover-budaya { position: relative; overflow: hidden; isolation: isolate; }
+.section-berita::before, .section-discover::before, .section-discover-budaya::before,
+.section-berita::after, .section-discover::after, .section-discover-budaya::after {
+    content: ''; position: absolute; z-index: -1; pointer-events: none; border-radius: 50%;
+    width: clamp(320px, 42vw, 620px); aspect-ratio: 1; filter: blur(8px);
+}
+.section-berita::before, .section-discover::before, .section-discover-budaya::before {
+    top: -12%; left: -8%; background: radial-gradient(closest-side, rgba(244, 197, 213, 0.85), transparent);
+}
+.section-berita::after, .section-discover::after, .section-discover-budaya::after {
+    bottom: -18%; right: -6%; background: radial-gradient(closest-side, rgba(244, 197, 213, 0.38), transparent);
+}
+.section-discover-budaya::after { background: radial-gradient(closest-side, rgba(84, 32, 95, 0.35), transparent); }
+:root[data-theme="dark"] .section-berita::before, :root[data-theme="dark"] .section-discover::before,
+:root[data-theme="dark"] .section-discover-budaya::before { background: radial-gradient(closest-side, rgba(84, 32, 95, 0.8), transparent); }
+:root[data-theme="dark"] .section-berita::after, :root[data-theme="dark"] .section-discover::after { background: radial-gradient(closest-side, rgba(244, 197, 213, 0.22), transparent); }
+:root[data-theme="dark"] .section-discover-budaya::after { background: radial-gradient(closest-side, rgba(244, 197, 213, 0.2), transparent); }
+
+/* ==========================================================================
+   7. HOVER — bukan sekadar ganti warna.
+   Bahasa gerak: tombol "tersapu" warna, kartu mengangkat + miring mengikuti kursor + kilau,
+   gambar zoom pelan, judul bergaris-bawah tumbuh, panah bergeser.
+   Semua dimatikan lewat prefers-reduced-motion (laravel.css) dan efek kursor hanya di perangkat hover.
+   ========================================================================== */
+
+/* -- Tombol: warna menyapu dari kiri, panah bergeser, ditekan sedikit mengecil -- */
+.btn-aceh-primary, .btn-primary-custom, .btn-aceh-outline, .btn-aceh-accent {
+    position: relative; overflow: hidden; isolation: isolate; z-index: 0;
+}
+.btn-aceh-primary::before, .btn-primary-custom::before, .btn-aceh-outline::before, .btn-aceh-accent::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: var(--wipe, var(--btn-hover-bg));
+    transform: scaleX(0); transform-origin: left center;
+    transition: transform 0.5s var(--ease-out);
+}
+.btn-aceh-primary:hover::before, .btn-primary-custom:hover::before, .btn-aceh-outline:hover::before, .btn-aceh-accent:hover::before,
+.btn-aceh-primary:focus-visible::before, .btn-primary-custom:focus-visible::before, .btn-aceh-outline:focus-visible::before, .btn-aceh-accent:focus-visible::before { transform: scaleX(1); }
+.btn-aceh-outline { --wipe: var(--btn-bg); }
+.btn-aceh-accent { --wipe: var(--c-night); --wipe-fg: var(--c-mint); }
+/* latar tombol tetap di hover supaya sapuan terlihat; yang berubah: warna teks */
+.btn-aceh-primary:hover, .btn-primary-custom:hover, .btn-aceh-primary:focus-visible, .btn-primary-custom:focus-visible { background-color: var(--btn-bg); border-color: var(--btn-hover-bg); box-shadow: 4px 4px 0 var(--sombra-keras); transform: translate(-2px, -2px); }
+.btn-aceh-outline:hover, .btn-aceh-outline:focus-visible { background-color: rgba(var(--rgb-teal), 0.09); box-shadow: 4px 4px 0 var(--sombra-keras); transform: translate(-2px, -2px); }
+.btn-aceh-accent:hover, .btn-aceh-accent:focus-visible { background-color: var(--c-mint); border-color: var(--c-mint); color: var(--wipe-fg); box-shadow: 4px 4px 0 var(--sombra-keras); transform: translate(-2px, -2px); }
+.btn { transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out); }
+.btn:active { transform: translate(0, 0) scale(0.97) !important; box-shadow: none !important; }
+.btn .fa-arrow-right, .btn .fa-chevron-right { transition: transform 0.3s var(--ease-out); }
+.btn:hover .fa-arrow-right { transform: translateX(5px); }
+.btn-aceh-glass:hover { box-shadow: 0 12px 28px var(--glass-shadow, rgba(41, 33, 43, 0.2)); }
+
+/* -- Navigasi: garis bawah tumbuh dari tengah; bobot huruf tetap (tidak ada layout shift) -- */
+.aceh-navbar .nav-link { position: relative; font-weight: 600; }
+.aceh-navbar .nav-link:hover, .aceh-navbar .nav-link.active { font-weight: 600; }
+.aceh-navbar .nav-link::after {
+    content: ''; position: absolute; left: 1rem; right: 1rem; bottom: 2px; height: 2px;
+    background: var(--c-mint); transform: scaleX(0); transform-origin: center;
+    transition: transform 0.4s var(--ease-out);
+}
+.aceh-navbar .nav-link:hover::after, .aceh-navbar .nav-link.active::after { transform: scaleX(1); }
+.tema-toggle .fa-moon, .tema-toggle .fa-sun { transition: transform 0.5s var(--ease-out); }
+.tema-toggle:hover .fa-moon { transform: rotate(-25deg) scale(1.15); }
+.tema-toggle:hover .fa-sun { transform: rotate(90deg) scale(1.15); }
+
+/* -- Chip: terangkat dengan bayangan keras ala cetak -- */
+.region-chip { transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), background-color 0.25s ease, color 0.25s ease; }
+.region-chip:hover { transform: translate(-2px, -2px); box-shadow: 3px 3px 0 var(--sombra-keras); }
+.region-chip.active { box-shadow: 3px 3px 0 var(--sombra-keras); }
+
+/* -- Kartu kaca: angkat + miring 3D mengikuti kursor (hover-fx.js) + kilau + sapuan cahaya -- */
+.discovery-card-modern, .news-ticker-card {
+    position: relative; overflow: hidden; transform-style: preserve-3d;
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--naik, 0px));
+    transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out), 
+}
+.discovery-card-modern:hover, .news-ticker-card:hover {
+    --naik: -8px;
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+.discovery-card-modern::after, .news-ticker-card::after {      /* kilau yang mengikuti kursor */
+    content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 3; opacity: 0;
+    background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 30%), rgba(255, 255, 255, 0.34), transparent 62%);
+    transition: opacity 0.35s ease;
+}
+.discovery-card-modern:hover::after, .news-ticker-card:hover::after { opacity: 1; }
+.discovery-card-modern::before, .news-ticker-card::before {    /* sapuan cahaya diagonal sekali lewat */
+    content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 60%; pointer-events: none; z-index: 3;
+    background: linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.28) 50%, transparent 80%);
+    transform: translateX(-130%) skewX(-12deg); opacity: 0;
+}
+.discovery-card-modern:hover::before, .news-ticker-card:hover::before { opacity: 1; transform: translateX(260%) skewX(-12deg); transition: transform 0.9s var(--ease-out); }
+.discovery-img-wrapper img { transition: transform 1s var(--ease-out), filter 0.6s ease; }
+.discovery-card-modern:hover .discovery-img-wrapper img { transform: scale(1.09); }
+.card-category-tag { transition: transform 0.4s var(--ease-out); }
+.discovery-card-modern:hover .card-category-tag { transform: translateY(2px); }
+
+/* judul bergaris bawah yang tumbuh */
+.card-title-link {
+    background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 2px;
+    transition: background-size 0.5s var(--ease-out), color 0.3s ease;
+    padding-bottom: 2px;
+}
+.discovery-card-modern:hover .card-title-link, .card-title-link:hover { background-size: 100% 2px; color: var(--color-accent); }
+
+/* -- Hero: frame meluruskan diri, blok di belakang bergeser -- */
+.hero-kubah-bayang, .hero-slab, .hero-floating-card, .hero-badge-top { transition: transform 0.8s var(--ease-out), box-shadow 0.8s var(--ease-out); }
+.hero-visual-container:hover .hero-kubah-bayang { transform: translateY(-6px) scale(1.012); }
+.hero-visual-container:hover .hero-slab { transform: translate(10px, 6px); }
+.hero-visual-container:hover .hero-floating-card { transform: rotate(0deg) translate(-6px, -6px); }
+.hero-visual-container:hover .hero-badge-top { transform: rotate(0deg) translate(4px, 4px); }
+
+/* -- Video sorotan: zoom pelan di dalam bingkai -- */
+.featured-video-frame video, .featured-video-frame img { transition: transform 1.2s var(--ease-out); }
+.featured-video-frame:hover video, .featured-video-frame:hover img { transform: scale(1.05); }
+.featured-video-frame .badge-featured-category { transition: transform 0.5s var(--ease-out); }
+.featured-video-frame:hover .badge-featured-category { transform: translate(4px, 4px); }
+
+/* -- Kolase identitas: foto meluruskan & naik ke depan -- */
+.collage-main, .collage-sub { transition: transform 0.7s var(--ease-out), box-shadow 0.7s var(--ease-out); }
+.collage-wrapper:hover .collage-main { transform: rotate(-0.6deg) translateY(-6px); }
+.collage-wrapper:hover .collage-sub { transform: rotate(0.8deg) translate(6px, -10px); }
+.collage-main img, .collage-sub img { transition: transform 1s var(--ease-out); }
+.collage-main:hover img, .collage-sub:hover img { transform: scale(1.06); }
+.identity-bullet { transition: transform 0.4s var(--ease-out); }
+.identity-bullet:hover { transform: translateX(8px); }
+.identity-bullet-icon { transition: transform 0.4s var(--ease-out), background-color 0.3s ease; }
+.identity-bullet:hover .identity-bullet-icon { transform: rotate(-8deg) scale(1.1); background: var(--c-mint); }
+
+/* -- Destinasi: kotak teks naik, judul bergeser, foto zoom -- */
+.dest-content-box { transition: transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out); }
+.dest-row:hover .dest-content-box { transform: translateY(-8px); box-shadow: 0 32px 56px rgba(41, 33, 43, 0.2); }
+.dest-title-pill { transition: transform 0.5s var(--ease-out); }
+.dest-row:hover .dest-title-pill { transform: translateX(8px); }
+.dest-content-box::before, .dest-content-box::after { transition: width 0.5s var(--ease-out), height 0.5s var(--ease-out); }
+.dest-row:hover .dest-content-box::before, .dest-row:hover .dest-content-box::after { width: 64px; height: 64px; }
+.dest-image-wrapper img { transition: transform 1.2s var(--ease-out); }
+.dest-row:hover .dest-image-wrapper img { transform: scale(1.07); }
+
+/* -- Kuliner / Budaya (halaman daftar): blob bergeser, foto goyang halus -- */
+.organic-blob { transition: transform 0.8s var(--ease-out); }
+.editorial-row:hover .organic-blob { transform: rotate(7deg) scale(1.07) translate(-8px, 6px); }
+.editorial-img { transition: transform 0.7s var(--ease-out), box-shadow 0.7s var(--ease-out); }
+.editorial-row:hover .editorial-img { transform: scale(1.04) rotate(1.2deg); box-shadow: 14px 16px 0 rgba(41, 33, 43, 0.14); }
+.budaya-item .custom-card-bg { transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out); }
+.budaya-item:hover .custom-card-bg { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+
+/* -- Carousel pengalaman: panah menggeser isi tombol -- */
+.carousel-nav-btn { transition: transform 0.3s var(--ease-out), background-color 0.3s ease, color 0.3s ease; }
+.carousel-nav-btn:hover { transform: translateY(-3px); }
+.carousel-nav-btn:hover .fa-chevron-right { transform: translateX(3px); }
+.carousel-nav-btn:hover .fa-chevron-left { transform: translateX(-3px); }
+.carousel-nav-btn i { transition: transform 0.3s var(--ease-out); }
+
+/* -- Footer: tautan menjorok + garis -- */
+.footer-links a { display: inline-block; background: linear-gradient(var(--c-mint), var(--c-mint)) no-repeat 0 100% / 0 1px; transition: transform 0.35s var(--ease-out), background-size 0.4s var(--ease-out), color 0.2s ease; }
+.footer-links a:hover { transform: translateX(6px); background-size: 100% 1px; }
+.aceh-footer .fa-brands { transition: transform 0.3s var(--ease-out); display: inline-block; }
+.aceh-footer a:hover .fa-brands { transform: translateY(-4px) rotate(-6deg); }
+
+/* kartu hanya miring mengikuti kursor di perangkat yang punya hover */
+@media (hover: none) {
+    .discovery-card-modern, .news-ticker-card { --rx: 0deg !important; --ry: 0deg !important; }
+    .hero-visual-container:hover .hero-kubah-bayang { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .discovery-card-modern, .news-ticker-card, .discovery-card-modern:hover, .news-ticker-card:hover { transform: none; }
+    .btn-aceh-primary::before, .btn-aceh-outline::before, .btn-aceh-accent::before, .btn-primary-custom::before { transition: none; }
+    .discovery-card-modern::before, .news-ticker-card::before { display: none; }
+}
+
+/* ==========================================================================
+   8. KACA LEBIH TEMBUS (penyetelan) — latar tetap terbaca di balik elemen.
+   Karena alpha kecil, keterbacaan dijaga bayangan teks tipis di atas foto,
+   dan tepi + kilau atas (inset) yang membuat kaca tetap terlihat sebagai bidang.
+   ========================================================================== */
+.experience-rating { -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); }
+
+/* tag & badge di atas foto/video */
+.card-category-tag, .dest-region-tag { background: rgba(41, 33, 43, 0.3); -webkit-backdrop-filter: blur(6px) saturate(150%); backdrop-filter: blur(6px) saturate(150%); }
+.card-category-tag.tag-budaya { background: rgba(244, 197, 213, 0.5); color: #29212B; text-shadow: 0 1px 4px rgba(255, 255, 255, 0.6); }
+.badge-featured-category { background: rgba(41, 33, 43, 0.26); -webkit-backdrop-filter: blur(6px) saturate(150%); backdrop-filter: blur(6px) saturate(150%); }
+
+/* kartu di atas blob: tepi lebih tegas karena isi kartu lebih bening */
+/* badge kategori/budaya/berita (bukan di atas foto): aqua bening */
+.badge-kategori, .badge-budaya, .badge-berita { background: rgba(244, 197, 213, 0.38); }
+:root[data-theme="dark"] .badge-kategori, :root[data-theme="dark"] .badge-budaya, :root[data-theme="dark"] .badge-berita { background: rgba(244, 197, 213, 0.82); }
+/* kotak teks destinasi menimpa foto: tembus, tapi cukup buram agar teks aman */
+.dest-content-box { background: var(--glass-bg-kuat); -webkit-backdrop-filter: blur(14px) saturate(160%); backdrop-filter: blur(14px) saturate(160%); }
+/* blob lebih kuat sedikit supaya kartu yang bening punya sesuatu untuk "ditembus" */
+.section-berita::before, .section-discover::before, .section-discover-budaya::before { opacity: 1; }
+
+/* ==========================================================================
+   9. TANPA GARIS TIPIS & TOMBOL BAHAYA
+   Garis dekoratif 1–2px dihapus di seluruh situs; pemisah diganti jarak, bayangan, dan perbedaan warna latar.
+   Yang SENGAJA dipertahankan: border field formulir (kebutuhan aksesibilitas), bingkai foto tebal (5–7px),
+   aksen tebal 4px di kartu hero, dan kotak unggah putus-putus (penanda area drop).
+   ========================================================================== */
+.btn-aceh-danger {
+    position: relative; overflow: hidden; isolation: isolate; z-index: 0;
+    background: rgba(214, 40, 57, 0.14); color: var(--text-dark);
+    border: 1.5px solid transparent; border-radius: var(--radius-pill);
+    font-weight: 600; padding: 12px 28px;
+}
+.btn-aceh-danger.btn-sm { padding: 6px 14px; }
+.btn-aceh-danger::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--c-heart); transform: scaleX(0); transform-origin: left center; transition: transform 0.45s var(--ease-out); }
+.btn-aceh-danger:hover, .btn-aceh-danger:focus-visible { color: #FFFFFF; background: rgba(214, 40, 57, 0.14); }
+.btn-aceh-danger:hover::before, .btn-aceh-danger:focus-visible::before { transform: scaleX(1); }
+.ulasan-item + .ulasan-item { margin-top: 0.75rem; }
+.btn-aceh-outline.btn-sm, .btn-aceh-primary.btn-sm, .btn-aceh-accent.btn-sm { padding: 6px 14px; }
+/* pemisah antar-sorotan: cukup selisih warna latar + jarak, bukan garis */
+.featured-block { border: 0; }
+.section-discover { border: 0; }
+
+/* ==========================================================================
+   TAMBAHAN 26 OKT 2026
+   1. hero-tag-pill kaca   2. kartu konten Budaya kaca   3. "Lihat di Maps"   4. tombol suka pengalaman
+   ========================================================================== */
+
+/* ---- 1. hero-tag-pill glassy (semua halaman). "body" menaikkan prioritas di atas CSS tiap halaman ---- */
+body .hero-tag-pill {
+    background: var(--glass-bg-kuat);
+    border: 1px solid var(--glass-tepi);
+    -webkit-backdrop-filter: blur(12px) saturate(160%); backdrop-filter: blur(12px) saturate(160%);
+    box-shadow: 0 6px 24px rgba(41, 33, 43, 0.1);
+}
+/* di atas video (overlay gelap) kaca dibuat putih bening dengan teks putih */
+body .has-video.video-aktif .hero-tag-pill {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.34);
+    color: #FFFFFF;
+}
+
+/* ---- 2. kartu konten Budaya: kaca seperti .dest-content-box ---- */
+.budaya-item .custom-card-bg {
+    background: var(--glass-bg-kuat);
+    border: 0;
+    -webkit-backdrop-filter: blur(14px) saturate(160%); backdrop-filter: blur(14px) saturate(160%);
+    box-shadow: 0 24px 48px rgba(41, 33, 43, 0.12);
+}
+
+/* ---- 3. "Lihat di Maps" di footer kotak destinasi (bersisian dengan label jenis wisata) ---- */
+.dest-maps-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-left: auto;                               /* tetap di kanan walau label jenis wisata kosong */
+    padding: 0.4rem 1rem; border-radius: var(--radius-pill);
+    font-size: 0.85rem; font-weight: 600; text-decoration: none;
+    color: var(--color-teal);
+    background: var(--glass-bg); border: 1px solid var(--glass-tepi);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+.dest-maps-link:hover, .dest-maps-link:focus-visible {
+    background: var(--surface-aksen); color: var(--accent-on-aksen); transform: translateY(-2px);
+}
+.dest-maps-link:focus-visible { outline: 3px solid var(--c-mint); outline-offset: 2px; }
+
+/* ---- 4. tombol suka pada slide pengalaman (di atas foto -> kaca putih bening, teks putih) ---- */
+.experience-like {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.45rem 1rem; border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.34);
+    color: #FFFFFF; font-weight: 600; font-size: 0.95rem; line-height: 1; cursor: pointer;
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    transition: background-color 0.25s ease, transform 0.2s ease;
+}
+.experience-like:hover { background: rgba(255, 255, 255, 0.26); }
+.experience-like:active { transform: scale(0.94); }
+.experience-like:focus-visible { outline: 3px solid var(--c-mint); outline-offset: 2px; }
+.experience-like.is-liked i { color: var(--c-love, #FF746B); }
+.experience-like.is-gagal { animation: suka-gagal 0.5s ease; }
+@keyframes suka-gagal { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+@media (prefers-reduced-motion: reduce) { .experience-like { transition: none; } .experience-like.is-gagal { animation: none; } }
+
+/* ==========================================================================
+   PEMBARUAN LANJUTAN
+   1. judul hero hitam/putih   2. lencana peringkat Top 10   3. "Tonton ..." di kartu Budaya
+   4. logo   5. teks Kuliner lebih terbaca   6. latar judul detail Kuliner = foto kuliner
+   ========================================================================== */
+
+/* ---- 1. judul utama hero: hitam (terang) / putih (gelap). Sengaja hanya mengatur "color" supaya gradasi <em> ("Cita Rasa", dst.) tetap utuh.
+        Hero bervideo yang sedang jalan tetap putih lewat .has-video.video-aktif h1 (header-video.css) karena overlay videonya gelap. ---- */
+.hero-heading, .page-hero h1, .hero-banner h1 { color: var(--judul-hero); }
+
+/* ---- 2. lencana peringkat: #1 emas terang, #2 perak, #3 perunggu, #4-#10 kaca gelap ---- */
+.badge-peringkat {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    padding: 0.32rem 0.75rem; border-radius: var(--radius-pill);
+    font-weight: 800; font-size: 0.85rem; line-height: 1; letter-spacing: 0.02em; white-space: nowrap;
+    background: rgba(41, 33, 43, 0.58); color: #FFFFFF;
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    box-shadow: 0 6px 16px rgba(41, 33, 43, 0.3);
+}
+.badge-peringkat.peringkat-1 {
+    background: linear-gradient(135deg, #FFE75A 0%, #FFC400 100%); color: #3B2900;
+    box-shadow: 0 6px 20px rgba(255, 196, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+.badge-peringkat.peringkat-1::before { content: "\f521"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 0.75em; }   /* mahkota */
+.badge-peringkat.peringkat-2 { background: linear-gradient(135deg, #F4F7F8 0%, #BDC7CD 100%); color: #26323A; }
+.badge-peringkat.peringkat-3 { background: linear-gradient(135deg, #F2B885 0%, #C77B3B 100%); color: #2E1A08; }
+.badge-peringkat--sudut { position: absolute; top: 10px; right: 10px; z-index: 4; }
+.editorial-img-wrap { position: relative; z-index: 2; display: inline-block; line-height: 0; }       /* membungkus foto kuliner + lencana di sudutnya */
+.editorial-img-wrap .badge-peringkat--sudut { top: -10px; right: -10px; line-height: 1; }
+.editorial-img-wrap > .badge-peringkat { transition: opacity 0.5s ease 0.6s; }                        /* muncul setelah tirai foto selesai */
+.js-reveal .editorial-img-wrap > .editorial-img:not(.is-in) ~ .badge-peringkat { opacity: 0; }
+
+/* ---- 3. "Tonton (nama budaya)" di sudut bawah kartu Budaya, di seberang label sorotan ---- */
+.budaya-tonton {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.45rem 1.05rem; border-radius: var(--radius-pill);
+    font-size: 0.88rem; font-weight: 600; text-decoration: none; color: var(--color-teal);
+    background: var(--glass-bg); border: 1px solid var(--glass-tepi);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+.budaya-tonton .fa-circle-play { color: var(--c-heart); font-size: 1.05em; transition: color 0.25s ease; }
+.budaya-tonton:hover, .budaya-tonton:focus-visible { background: var(--surface-aksen); color: var(--accent-on-aksen); transform: translateY(-2px); }
+.budaya-tonton:hover .fa-circle-play, .budaya-tonton:focus-visible .fa-circle-play { color: currentColor; }
+.budaya-tonton:focus-visible { outline: 3px solid var(--c-mint); outline-offset: 2px; }
+
+/* ---- 4. logo: mawar kompas + bulan sabit; berputar pelan saat disorot ---- */
+.brand-icon .brand-logo { display: block; transition: transform 0.8s var(--ease-out); }
+.brand-icon .brand-logo-sabit { fill: var(--surface-aksen); }                       /* bulan sabit = warna latar lingkaran logo */
+.navbar-brand:hover .brand-logo, .navbar-brand:focus-visible .brand-logo { transform: rotate(90deg); }
+
+/* ---- 5. teks halaman Kuliner lebih terbaca: abu "muted" digeser mendekati warna teks utama (tetap sedikit lebih lembut dari judul) ---- */
+.editorial-row, .kuliner-detail, .hero-gambar {
+    --teks-kuliner: color-mix(in srgb, var(--text-dark) 80%, var(--text-muted));
+    --bs-secondary-color: var(--teks-kuliner);
+}
+
+/* ---- 6. latar judul halaman detail = foto kuliner itu sendiri: tint (terang/gelap sesuai tema) + blur tipis ---- */
+.hero-gambar { background: none; isolation: isolate; }
+.hero-gambar::before {                               /* inset negatif menyembunyikan tepi pudar akibat blur */
+    content: ''; position: absolute; inset: -14px; z-index: 0;
+    background: var(--hero-foto) center / cover no-repeat;
+    -webkit-filter: blur(3px); filter: blur(3px);
+}
+.hero-gambar::after {
+    content: ''; position: absolute; inset: 0; z-index: 1;
+    background: color-mix(in srgb, var(--color-mist) 68%, transparent);
+}
+.hero-gambar > .container { position: relative; z-index: 2; }
+.hero-gambar p { color: var(--text-dark); }
+@media (prefers-reduced-motion: reduce) { .brand-icon .brand-logo, .budaya-tonton, .editorial-img-wrap > .badge-peringkat { transition: none; } }

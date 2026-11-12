@@ -1,0 +1,40 @@
+/* ==========================================================================
+   LATAR HALAMAN — foto fixed di belakang konten (Kuliner, Budaya, Destinasi)
+   Dipasang lewat <div class="latar-halaman latar-NAMA"> di layouts/app.blade.php
+   (halaman mengisi @section('latar', 'kuliner|budaya|destinasi')).
+   Foto: public/assets/img/latar-NAMA-desktop.webp  dan  latar-NAMA-mobile.webp
+   ========================================================================== */
+
+/* ---- ATUR DI SINI ---- */
+:root {
+    --latar-blur: 2px;                              /* ketajaman foto: 0 = tajam; "sangat sedikit" = 1-3px */
+    --latar-tint: rgba(248, 232, 208, 0.55);        /* tema TERANG: lapisan terang di atas foto (0 = foto polos, 1 = foto hilang) */
+}
+:root[data-theme="dark"] {
+    --latar-tint: rgba(41, 33, 43, 0.58);            /* tema GELAP: lapisan gelap di atas foto */
+}
+
+/* Elemen fixed (bukan background-attachment: fixed, yang tidak andal di iOS/Android) */
+.latar-halaman {
+    position: fixed; inset: 0; z-index: -1;
+    overflow: hidden; pointer-events: none;
+}
+.latar-halaman::before {                            /* foto; inset negatif menyembunyikan tepi pudar akibat blur */
+    content: ''; position: absolute; inset: -12px;
+    background: var(--latar-foto) center / cover no-repeat;
+    -webkit-filter: blur(var(--latar-blur)); filter: blur(var(--latar-blur));
+}
+.latar-halaman::after {                             /* tint terang/gelap */
+    content: ''; position: absolute; inset: 0;
+    background: var(--latar-tint);
+}
+
+.latar-kuliner   { --latar-foto: url('../img/latar-kuliner-desktop.webp'); }
+.latar-budaya    { --latar-foto: url('../img/latar-budaya-desktop.webp'); }
+.latar-destinasi { --latar-foto: url('../img/latar-destinasi-desktop.webp'); }
+
+@media (max-width: 767.98px) {                      /* HP: foto potret */
+    .latar-kuliner   { --latar-foto: url('../img/latar-kuliner-mobile.webp'); }
+    .latar-budaya    { --latar-foto: url('../img/latar-budaya-mobile.webp'); }
+    .latar-destinasi { --latar-foto: url('../img/latar-destinasi-mobile.webp'); }
+}

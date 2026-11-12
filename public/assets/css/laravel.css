@@ -1,0 +1,46 @@
+/* ==========================================================================
+   LAPISAN TIPIS UNTUK LARAVEL
+   Hanya berisi elemen yang TIDAK ada di desain lama (pesan flash, status
+   memuat live search). Tidak mengubah tampilan CSS lama.
+   Dimuat paling akhir di layouts/app.blade.php.
+   ========================================================================== */
+
+/* Navbar bersifat fixed-top, jadi pesan flash ikut melayang di bawahnya */
+.flash-stack {
+    position: fixed; top: 92px; left: 50%; transform: translateX(-50%);
+    z-index: 1080; width: min(92vw, 520px);
+    display: flex; flex-direction: column; gap: 10px;
+}
+.flash-stack .alert {
+    margin: 0; border: none; border-radius: var(--radius-md, 24px);
+    box-shadow: var(--shadow-hover, 0 24px 48px rgba(41, 33, 43, .14));
+    font-weight: 600;
+}
+
+/* Halaman tanpa hero (403/404) perlu jarak dari navbar fixed */
+.page-offset { padding-top: 150px; }
+
+/* Daftar yang sedang dimuat ulang oleh live search */
+.sedang-memuat { opacity: .45; transition: opacity .15s ease; pointer-events: none; }
+
+/* <form> di dalam navbar (tombol Keluar) tidak boleh menambah margin */
+.aceh-navbar form { margin: 0; }
+
+/* Kutipan pengalaman: baris kosong yang diketik pengunjung di textarea ikut tampil
+   (CSS lama menyatukannya jadi satu baris panjang) */
+.experience-quote { white-space: pre-line; }
+
+/* ---------- Aksesibilitas ---------- */
+/* Tautan "Lewati ke konten" muncul saat difokuskan dengan Tab */
+.skip-link { position: fixed; top: 8px; left: 8px; z-index: 2000; padding: 10px 16px; border-radius: 999px;
+             background: var(--color-teal, #29212B); color: #fff; text-decoration: none; font-weight: 600; }
+/* Indikator fokus keyboard yang jelas (tidak memengaruhi klik mouse) */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible,
+[role="button"]:focus-visible { outline: 3px solid var(--c-night); outline-offset: 2px; }
+#konten:focus { outline: none; }
+/* Hormati pengguna yang mematikan animasi di sistemnya */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+                             transition-duration: .01ms !important; scroll-behavior: auto !important; }
+    .carousel-item { transition: none !important; }
+}

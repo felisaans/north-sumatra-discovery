@@ -1,0 +1,57 @@
+/* ==========================================================================
+   HEADER VIDEO (YouTube background) — Kuliner, Budaya, Destinasi
+   Semua aturan dikunci ke ".has-video" supaya header lain (mis. Favorit) tidak berubah.
+   All rules are scoped to ".has-video" so other headers stay untouched.
+   ========================================================================== */
+
+.has-video {
+    position: relative; overflow: hidden;
+    border-radius: 0;                              /* sudut tegas (editorial mix) */
+}
+.has-video > .container { position: relative; z-index: 2; }
+
+/* lapisan video — di belakang konten / video layer sits behind content */
+.yt-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1s ease; }
+.yt-bg.is-playing { opacity: 1; }                  /* muncul halus setelah video benar-benar jalan */
+
+/* cover 16:9 untuk frame mana pun, tanpa JS / 16:9 "object-fit: cover" for the iframe */
+.yt-bg__frame { position: absolute; inset: 0; container-type: size; overflow: hidden; }
+.yt-bg iframe, .yt-bg__player {
+    position: absolute; top: 50%; left: 50%;
+    width: 100%; height: 100%;                     /* fallback browser lama */
+    width: max(100cqw, 177.78cqh); height: max(100cqh, 56.25cqw);
+    transform: translate(-50%, -50%);
+    border: 0; pointer-events: none;
+}
+
+/* TikTok (header Kuliner): player 9:16 di-cover ke header lebar. Lebar = lebar header, tinggi = 16/9 x lebar,
+   diposisikan di tengah -> bagian atas/bawah footage terpotong (normal untuk video portrait di header lebar). */
+.yt-bg--tiktok iframe {
+    position: absolute; top: 50%; left: 50%;
+    width: max(100cqw, 56.25cqh); height: max(177.78cqw, 100cqh);
+    transform: translate(-50%, -50%);
+    border: 0; pointer-events: none;
+}
+
+/* overlay gelap supaya teks putih terbaca / dark overlay for text legibility */
+.yt-bg__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(41, 33, 43, 0.45) 0%, rgba(41, 33, 43, 0.62) 100%);
+}
+
+/* ---- Saat video AKTIF: teks header jadi terang (hanya setelah video jalan) ---- */
+.has-video h1, .has-video p { transition: color 0.8s ease; }
+.has-video.video-aktif h1 { color: #fff; text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35); }
+.has-video.video-aktif h1 em {
+    background: none; -webkit-text-fill-color: currentColor;   /* gradien teal->meadow tak terbaca di atas gelap */
+    color: var(--color-meadow);
+}
+.has-video.video-aktif p { color: rgba(255, 255, 255, 0.9); text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35); }
+
+/* tanpa animasi / reduced motion: lapisan tidak dipakai sama sekali */
+@media (prefers-reduced-motion: reduce) {
+    .yt-bg { display: none; }
+}
+@media (max-width: 767.98px) {
+    .has-video { border-radius: 0; }
+}

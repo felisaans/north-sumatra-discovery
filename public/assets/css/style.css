@@ -1,0 +1,302 @@
+/* ==========================================================================
+   ACEH DISCOVERY — SHARED DESIGN SYSTEM (dipakai di semua halaman)
+   Palet baru "Pesisir & Rimba" (5 warna) + bentuk editorial: persegi, radius kecil.
+   Token dibalik untuk mode gelap di dark.css (DEFAULT situs = gelap).
+
+   PALET (HEX)
+     Alice Blue   #F8E8D0   latar terang, teks di atas permukaan gelap
+     Pearl Aqua   #F4C5D5   aksen lembut, garis, teks aksen di mode gelap
+     Emerald      #F4C5D5   highlight, tombol aksen
+     Stormy Teal  #54205F   aksen utama, hover, permukaan di mode gelap
+     Evergreen    #29212B   teks, permukaan gelap, latar mode gelap
+   ========================================================================== */
+:root {
+    --c-mint: #F4C5D5;        /* Berry Blush */
+    --c-night: #54205F;       /* Ulos Purple (primary) */
+    --c-porcelain: #F8E8D0;   /* Warm Linen */
+    --c-ink: #29212B;         /* Ink Black */
+
+    color-scheme: light;
+
+    /* token lama dipetakan ke palet baru (semua CSS halaman memakai nama ini) */
+    --color-mist: var(--c-porcelain);          /* latar halaman */
+    --color-sky-light: #FFF9F1;            /* latar section selang-seling (Alice + sedikit Aqua) */
+    --color-white: #FFFFFF;                /* permukaan kartu */
+    --color-teal: #29212B;      /* judul & teks kuat */
+    --color-teal-dark: #29212B;            /* footer */
+    --color-teal-soft: var(--c-night);
+    --color-accent: #B72D63;               /* label, ikon & angka beraksen (Stormy Teal, sedikit lebih tua agar AA di teks kecil) */
+    --color-sky: var(--c-mint);
+    --color-meadow: var(--c-mint);
+    --surface-aksen: var(--c-night);   /* badge, chip aktif, brand-icon */
+    --surface-identitas: #54205F;
+    --identitas-eyebrow: #F4C5D5;
+    --text-on-aksen: #F8E8D0;       /* teks di atas permukaan gelap — SELALU cerah */
+    --accent-on-aksen: #FFB52E;      /* ikon/teks aksen di atas permukaan gelap */
+    --rgb-teal: 84, 32, 95;                 /* garis/border tipis ikut tema */
+    --pola-titik: rgba(183, 45, 99, 0.14);
+    --text-dark: #514852;
+    --text-muted: #716670;
+    --judul-hero: #29212B;            /* judul utama hero: hitam di tema terang (putih di tema gelap, lihat dark.css) */
+    --color-white-rgb: 255, 255, 255;
+
+    /* tombol utama */
+    --btn-bg: #54205F;
+    --btn-fg: #FFFFFF;
+    --btn-hover-bg: #71317D;
+    --btn-hover-fg: #FFFFFF;
+
+    /* gradien teks <em> di judul besar */
+    --grad-em-a: #54205F;
+    --grad-em-b: #B72D63;
+
+    /* warna SEMANTIK — dipakai untuk ikon tertentu, bukan dekorasi */
+    --sombra-keras: #54205F;   /* bayangan keras ala cetak saat hover */
+
+    --c-star: #FFB52E;     /* bintang rating = kuning */
+    --c-heart: #F04438;    /* suka / favorit = merah */
+    --c-pin: #23845B;      /* pin lokasi = hijau */
+
+    /* MATERIAL KACA (slight glassy, tetap tembus pandang). Dipakai di editorial.css */
+    --glass-bg: rgba(248, 232, 208, 0.30);
+    --glass-bg-kuat: rgba(248, 232, 208, 0.50);
+    --glass-tepi: rgba(255, 255, 255, 0.62);
+    --glass-blur: blur(10px) saturate(160%);
+    --ease-out: cubic-bezier(0.22, 0.8, 0.24, 1);
+
+    --font-heading: 'Schibsted Grotesk', serif;
+    --font-body: 'Schibsted Grotesk', sans-serif;
+
+    /* BENTUK EDITORIAL: persegi dengan sudut sedikit membulat. Tidak ada pill lagi.
+       GANTI DI SINI: 0 = tajam total, 8px = lebih lembut. */
+    --radius-pill: 4px;    /* tombol, chip, tag, badge, input */
+    --radius-md: 2px;      /* kartu, gambar, panel */
+    --radius-lg: 2px;
+
+    --shadow-soft: 0 16px 36px rgba(84, 32, 95, 0.12);
+    --shadow-hover: 0 24px 48px rgba(84, 32, 95, 0.12);
+    --blob-sky: rgba(244, 197, 213, 0.55);
+    --blob-meadow: rgba(255, 181, 46, 0.25);
+
+    /* alias warna lama */
+    --primary-color: var(--color-teal);
+    --secondary-color: var(--color-sky);
+    --accent-color: var(--color-meadow);
+    --bg-color: var(--color-mist);
+
+    /* variabel Bootstrap */
+    --bs-body-bg: var(--color-mist);
+    --bs-body-color: var(--text-dark);
+    --bs-secondary-color: var(--text-muted);
+    --bs-border-color: transparent;      /* tanpa garis tipis; hanya tombol yang berborder */
+    --field-bg: rgba(84, 32, 95, 0.07);   /* kolom input = bidang berwarna, bukan kotak berbingkai */
+    --bs-success: #23845B;
+    --bs-success-rgb: 35, 132, 91;
+    --bs-warning-rgb: 217, 149, 19;
+    --bs-danger-rgb: 217, 54, 69;
+    --bs-border-radius: var(--radius-md);
+    --bs-border-radius-sm: var(--radius-md);
+    --bs-border-radius-lg: var(--radius-md);
+    --bs-border-radius-xl: var(--radius-md);
+    --bs-border-radius-xxl: var(--radius-md);
+    --bs-nav-pills-border-radius: var(--radius-pill);
+
+    /* token tambahan Ulos Electric (lihat PANDUAN-WARNA-ULOS-ELECTRIC.md) */
+    --btn-active-bg: #3F1748;
+    --btn-secondary-bg: #B72D63;
+    --btn-secondary-hover-bg: #92234E;
+    --accent-btn-bg: #FFB52E;
+    --accent-btn-fg: #29212B;
+    --outline-bg: rgba(84, 32, 95, 0.07);
+    --outline-fg: #54205F;
+    --disabled-bg: #E8DDE5;
+    --disabled-fg: #958A94;
+    --link-color: #B72D63;
+    --link-hover: #54205F;
+    --card-border: #EAD9D5;            /* tersedia bila suatu komponen memang butuh garis */
+    --divider: rgba(84, 32, 95, 0.10);   /* pemisah struktural: hr, baris tabel, header/footer modal */
+    --danger-text: #B3202F;              /* teks error: #D93645 hanya 3.8:1 di atas linen */
+    --success-text: #1B6B49;             /* teks sukses: #23845B hanya 3.9:1 di atas linen */
+    --placeholder: #62575F;              /* placeholder: #716670 hanya 4.0:1 di atas bidang input */
+    --focus-ring: rgba(183, 45, 99, 0.22);
+    --section-rose: #F9E5EC;
+    --section-gold: #FFF1CF;
+    --bs-body-color: #514852;
+    --bs-link-color: #B72D63;
+    --bs-link-hover-color: #54205F;
+    --bs-focus-ring-color: rgba(183, 45, 99, 0.22);
+
+}
+
+body {
+    background-color: var(--color-mist);
+    color: var(--text-dark);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+/* overflow-x: hidden di body saja TIDAK mencegah browser mobile memperlebar viewport ketika ada elemen yang sesaat
+   melebar (mis. zoom animasi reveal). "clip" memotong tanpa jadi scroll container -> layar tidak ikut melebar. */
+#konten { overflow-x: clip; }
+h1, h2, h3, .font-editorial { font-family: var(--font-heading); }
+.text-teal { color: var(--color-accent) !important; }
+.text-meadow { color: var(--color-meadow) !important; }
+.text-sky { color: var(--color-sky) !important; }
+
+/* ---------- NAVBAR ---------- */
+.aceh-navbar {
+    background-color: rgba(248, 232, 208, 0.8);       /* sedikit tembus pandang (sebelumnya 0.92); turunkan lagi = makin bening */
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    padding: 1.1rem 0;
+}
+.brand-icon {
+    width: 44px; height: 44px;
+    background-color: var(--surface-aksen);
+    color: var(--accent-on-aksen);
+    border-radius: var(--radius-pill);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.15rem;
+}
+.brand-text {
+    font-family: var(--font-heading);
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--color-teal);
+}
+.aceh-navbar .nav-link {
+    color: var(--text-dark); font-weight: 500;
+    font-size: 0.95rem; padding: 0.5rem 1rem;
+}
+.aceh-navbar .nav-link:hover,
+.aceh-navbar .nav-link.active { color: var(--color-accent); font-weight: 700; }
+
+/* ---------- BUTTONS ---------- */
+.btn { --bs-btn-border-radius: var(--radius-pill); }
+.btn-aceh-primary, .btn-primary-custom {
+    background-color: var(--btn-bg);
+    color: var(--btn-fg);
+    border: 1px solid var(--btn-bg);
+    border-radius: var(--radius-pill);
+    padding: 12px 28px; font-weight: 600;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.btn-aceh-primary:hover, .btn-primary-custom:hover,
+.btn-aceh-primary:focus-visible, .btn-primary-custom:focus-visible {
+    background-color: var(--btn-hover-bg);
+    border-color: var(--btn-hover-bg);
+    color: var(--btn-hover-fg);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(41, 33, 43, 0.2);
+}
+.btn-aceh-outline {
+    border: 1.5px solid transparent;
+    color: var(--color-teal); background: rgba(var(--rgb-teal), 0.09);
+    border-radius: var(--radius-pill);
+    padding: 12px 28px; font-weight: 600;
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.btn-aceh-outline:hover, .btn-aceh-outline:focus-visible {
+    background-color: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-fg);
+}
+.btn-aceh-accent {
+    background-color: var(--c-mint);
+    color: var(--c-ink); border: 1px solid var(--c-mint);
+    border-radius: var(--radius-pill);
+    padding: 12px 28px; font-weight: 700;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
+.btn-aceh-accent:hover { background-color: #FFCA61; border-color: #FFCA61; color: var(--c-ink); transform: translateY(-2px); }
+
+/* ---------- REGION CHIPS ---------- */
+.region-chip {
+    background-color: var(--color-white);
+    border: 1.5px solid transparent;
+    color: var(--text-dark);
+    padding: 10px 22px; border-radius: var(--radius-pill);
+    font-size: 0.9rem; font-weight: 600;
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    cursor: pointer;
+}
+.region-chip:hover,
+.region-chip.active {
+    background-color: var(--surface-aksen);
+    color: var(--text-on-aksen);
+    border-color: var(--surface-aksen);
+}
+
+/* ---------- FOOTER ---------- */
+.aceh-footer {
+    background-color: var(--color-teal-dark);
+    color: rgba(248, 232, 208, 0.78);
+    padding: 70px 0 30px; font-size: 0.9rem;
+    margin-top: 60px;
+}
+.footer-heading {
+    color: var(--c-porcelain);
+    font-family: var(--font-heading);
+    font-weight: 700; margin-bottom: 20px;
+}
+.footer-links li { margin-bottom: 12px; }
+.footer-links a { color: rgba(248, 232, 208, 0.75); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--c-mint); }
+
+/* ---------- FORM UMUM ---------- */
+.filter-section, .custom-card-bg {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-soft);
+}
+.filter-section .form-control, .custom-card-bg .form-control,
+.filter-section .form-select, .custom-card-bg .form-select {
+    border-radius: var(--radius-pill);
+    border: 0; background-color: var(--field-bg);
+    padding: 12px 20px; color: var(--color-teal); font-size: 0.95rem;
+}
+.filter-section .form-control:focus, .custom-card-bg .form-control:focus,
+.filter-section .form-select:focus, .custom-card-bg .form-select:focus {
+    background-color: var(--field-bg);
+    box-shadow: 0 0 0 3px rgba(244, 197, 213, 0.6);
+}
+.filter-section .input-group-text, .custom-card-bg .input-group-text {
+    background: var(--field-bg);
+    border: 0;
+    border-radius: var(--radius-pill) 0 0 var(--radius-pill);
+    color: var(--color-accent); padding-left: 1rem;
+}
+.filter-section .input-group .form-control, .custom-card-bg .input-group .form-control {
+    border-left: none;
+    border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
+}
+.nav-pills .nav-link { color: var(--text-dark); font-weight: 600; }
+.nav-pills .nav-link.active { background-color: var(--surface-aksen); color: var(--text-on-aksen); }
+
+/* ==========================================================================
+   OVERRIDE BOOTSTRAP — sudut kecil di semua komponen bawaan; tombol & badge ikut token.
+   ========================================================================== */
+.badge { --bs-badge-border-radius: var(--radius-pill); }
+
+/* ==========================================================================
+   TOMBOL TOGGLE TEMA (navbar) — persegi kecil, ikon bulan/matahari
+   ========================================================================== */
+.tema-toggle {
+    width: 42px; height: 42px; flex: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: var(--radius-pill); padding: 0; cursor: pointer;
+    color: var(--color-teal);
+    border: 1.5px solid transparent;
+    background: rgba(var(--rgb-teal), 0.09);
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+.tema-toggle:hover { background: var(--btn-bg); color: var(--btn-fg); transform: rotate(-8deg); }
+.tema-toggle:focus-visible { outline: 3px solid var(--c-mint); outline-offset: 2px; }
+.tema-toggle .ikon-matahari { display: none; }
+:root[data-theme="dark"] .tema-toggle .ikon-bulan { display: none; }
+:root[data-theme="dark"] .tema-toggle .ikon-matahari { display: inline-block; }
+
+html.tema-transisi, html.tema-transisi *, html.tema-transisi *::before, html.tema-transisi *::after {
+    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+}
+@media (prefers-reduced-motion: reduce) {
+    html.tema-transisi, html.tema-transisi *, html.tema-transisi *::before, html.tema-transisi *::after { transition: none !important; }
+    .tema-toggle:hover { transform: none; }
+}

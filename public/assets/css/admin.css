@@ -1,0 +1,89 @@
+/* ==========================================================================
+   DASHBOARD ADMIN — satu bahasa visual dengan situs publik.
+   Memakai token yang sama (style.css / dark.css): Mint, Night Sea Blue, Porcelain + netral gelap.
+   Tema terang/gelap ikut pilihan di situs (localStorage 'tema').
+   ========================================================================== */
+body { background-color: var(--color-mist); color: var(--text-dark); }
+
+/* ---------- Navbar ---------- */
+.admin-navbar { padding: 0.8rem 0; }
+.brand-sub {
+    display: inline-block; vertical-align: middle; margin-left: 10px;
+    font-family: var(--font-body); font-size: 0.68rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    padding: 4px 9px; border-radius: var(--radius-pill);
+    background: var(--surface-aksen); color: var(--accent-on-aksen);
+}
+.admin-user { color: var(--text-muted); }
+.admin-avatar {                       /* ikon user: harus bulat */
+    width: 36px; height: 36px; flex: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50%; font-weight: 700; font-size: 0.9rem;
+    background: var(--surface-aksen); color: var(--accent-on-aksen);
+}
+
+/* ---------- Sidebar ---------- */
+.admin-sidebar {
+    background: var(--color-white);
+    min-height: calc(100vh - 74px);
+}
+.admin-sidebar .nav-link {
+    position: relative;
+    display: flex; align-items: center; gap: 0.7rem;
+    color: var(--text-dark); font-weight: 600; font-size: 0.93rem;
+    border-radius: var(--radius-pill); padding: 0.65rem 1rem;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.35s var(--ease-out);
+}
+.admin-sidebar .nav-link i { width: 1.2rem; text-align: center; color: var(--color-accent); transition: transform 0.35s var(--ease-out), color 0.25s ease; }
+.admin-sidebar .nav-link:hover:not(.active) { background: rgba(var(--rgb-teal), 0.09); transform: translateX(5px); }
+.admin-sidebar .nav-link:hover:not(.active) i { transform: scale(1.18) rotate(-6deg); }
+.admin-sidebar .nav-link.active { background: var(--surface-aksen); color: var(--text-on-aksen); }
+.admin-sidebar .nav-link.active i { color: var(--accent-on-aksen); }
+
+/* ---------- Judul & tabel ---------- */
+.admin-judul { font-family: var(--font-heading); color: var(--color-teal); }
+#tabelData {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--text-dark);
+    --bs-table-border-color: transparent;
+    --bs-table-striped-bg: transparent;
+    border-collapse: separate; border-spacing: 0 2px;
+}
+#tabelData th {
+    color: var(--text-muted); font-size: 0.74rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    background: transparent; padding-bottom: 0.85rem;
+}
+#tabelData tbody tr > * { background: transparent; transition: background-color 0.2s ease; padding-top: 0.8rem; padding-bottom: 0.8rem; }
+#tabelData tbody tr:nth-child(odd) > * { background: rgba(var(--rgb-teal), 0.05); }
+#tabelData tbody tr:hover > * { background: rgba(var(--rgb-teal), 0.12); }
+#tabelData tbody tr > :first-child { border-radius: var(--radius-pill) 0 0 var(--radius-pill); }
+#tabelData tbody tr > :last-child { border-radius: 0 var(--radius-pill) var(--radius-pill) 0; }
+#tabelData img.thumb { width: 52px; height: 52px; object-fit: cover; border-radius: var(--radius-md); transition: transform 0.4s var(--ease-out); }
+#tabelData tbody tr:hover img.thumb { transform: scale(1.12) rotate(-2deg); }
+#tabelData .btn-sm { padding: 6px 12px; }
+
+/* ---------- Form & modal ---------- */
+.modal-content { border-radius: var(--radius-md); box-shadow: var(--shadow-hover); background: var(--color-white); color: var(--text-dark); }
+.admin-navbar ~ * .form-control:focus, .modal .form-control:focus, .modal .form-select:focus, main .form-control:focus {
+    box-shadow: 0 0 0 3px rgba(244, 197, 213, 0.6);
+}
+main .form-control, main .form-select, .modal .form-control, .modal .form-select {
+    background-color: var(--field-bg); color: var(--text-dark);
+    border: 0; border-radius: var(--radius-pill);
+}
+main .input-group-text { background-color: var(--field-bg); color: var(--color-accent); border: 0; border-radius: var(--radius-pill) 0 0 var(--radius-pill); }
+main .input-group .form-control { border-left: 0; border-radius: 0 var(--radius-pill) var(--radius-pill) 0; }
+
+/* ---------- Pagination ---------- */
+.pagination {
+    --bs-pagination-bg: transparent; --bs-pagination-border-width: 0;
+    --bs-pagination-color: var(--color-teal); --bs-pagination-hover-color: var(--color-teal);
+    --bs-pagination-hover-bg: rgba(var(--rgb-teal), 0.1);
+    --bs-pagination-active-bg: var(--surface-aksen); --bs-pagination-active-color: var(--text-on-aksen);
+    --bs-pagination-active-border-color: transparent;
+    --bs-pagination-disabled-bg: transparent; --bs-pagination-disabled-color: var(--text-muted);
+    --bs-pagination-border-radius: var(--radius-pill);
+    gap: 4px;
+}
+.pagination .page-link { border-radius: var(--radius-pill); }

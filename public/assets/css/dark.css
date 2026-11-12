@@ -1,0 +1,142 @@
+/* ==========================================================================
+   DARK MODE — North Sumatra Discovery (Ulos Electric) (halaman publik). Dimuat PALING AKHIR di layout.
+   Aktif bila <html data-theme="dark"> (DEFAULT situs = gelap).
+
+   Strategi: balik TOKEN (lihat style.css). Evergreen jadi latar, Alice Blue jadi teks,
+   Pearl Aqua & Emerald jadi aksen, Stormy Teal jadi permukaan beraksen.
+   ========================================================================== */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+
+    --color-mist: #17131A;            /* Evergreen: latar halaman */
+    --color-sky-light: #201923;       /* latar section selang-seling */
+    --color-white: #2F2633;           /* permukaan kartu/form (Evergreen + sedikit Stormy Teal) */
+    --color-white-rgb: 47, 38, 51;
+    --color-teal: #FFF9F1;            /* judul & teks kuat = Alice Blue */
+    --color-teal-dark: #110E14;       /* footer */
+    --color-teal-soft: #F4C5D5;
+    --color-accent: #F4C5D5;          /* label, ikon & angka beraksen = Pearl Aqua */
+    --surface-aksen: #71317D;         /* Stormy Teal: chip aktif, brand-icon, nav-pills */
+    --surface-identitas: #54205F;
+    --identitas-eyebrow: #F4C5D5;
+    --accent-on-aksen: #FFCA61;
+    --text-dark: #E6DCE5;
+    --text-muted: #B7AAB8;
+    --judul-hero: #FFF9F1;
+    --rgb-teal: 248, 232, 208;
+    --pola-titik: rgba(244, 197, 213, 0.12);
+
+    --btn-bg: #71317D;
+    --btn-fg: #FFFFFF;
+    --btn-hover-bg: #8A4395;
+    --btn-hover-fg: #FFFFFF;
+
+    --grad-em-a: #F4C5D5;
+    --grad-em-b: #FFCA61;
+
+    --c-star: #FFCA61;
+    --c-heart: #FF746B;
+    --c-pin: #55B98A;
+
+    --glass-bg: rgba(41, 33, 43, 0.58);
+    --glass-bg-kuat: rgba(41, 33, 43, 0.78);
+    --glass-tepi: rgba(248, 232, 208, 0.16);
+
+    --sombra-keras: #71317D;
+    --text-on-aksen: #FFF9F1;
+
+    --shadow-soft: 0 16px 36px rgba(17, 14, 20, 0.28);
+    --shadow-hover: 0 24px 48px rgba(17, 14, 20, 0.28);
+    --blob-sky: rgba(113, 49, 125, 0.40);
+    --blob-meadow: rgba(240, 68, 56, 0.24);
+
+    --bs-border-color: transparent;
+    --field-bg: rgba(248, 232, 208, 0.08);
+    --bs-success: #55B98A;
+    --bs-success-rgb: 85, 185, 138;
+    --bs-warning-rgb: 255, 202, 97;
+    --bs-danger-rgb: 255, 116, 107;
+
+    /* token tambahan Ulos Electric (lihat PANDUAN-WARNA-ULOS-ELECTRIC.md) */
+    --btn-active-bg: #54205F;
+    --btn-secondary-bg: #B72D63;
+    --btn-secondary-hover-bg: #D14378;
+    --accent-btn-bg: #FFCA61;
+    --accent-btn-fg: #29212B;
+    --outline-bg: rgba(248, 232, 208, 0.08);
+    --outline-fg: #F8E8D0;
+    --disabled-bg: rgba(248, 232, 208, 0.08);
+    --disabled-fg: #B7AAB8;
+    --link-color: #F4C5D5;   /* #E15A8A hanya 4.2:1 di atas kartu gelap */
+    --link-hover: #FFF9F1;
+    --card-border: rgba(248, 232, 208, 0.12);
+    --divider: rgba(248, 232, 208, 0.10);
+    --danger-text: #FF746B;
+    --success-text: #55B98A;
+    --placeholder: #B7AAB8;
+    --card-hover: #3A2B40;
+    --focus-ring: rgba(244, 197, 213, 0.55);
+    --section-elevated: #29212B;
+    --bs-link-color: #F4C5D5;
+    --bs-link-hover-color: #FFF9F1;
+    --bs-focus-ring-color: rgba(244, 197, 213, 0.55);
+    --bs-body-color: #E6DCE5;
+
+}
+
+:root[data-theme="dark"] .aceh-navbar { background-color: rgba(23, 19, 26, 0.76); }
+:root[data-theme="dark"] .aceh-navbar {          /* garis hamburger = abu muda (bukan putih penuh) */
+    --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23B9C2C7' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+:root[data-theme="dark"] .navbar-toggler-icon { filter: none; }
+
+/* tombol */
+:root[data-theme="dark"] .btn-aceh-accent { color: #29212B; }
+
+/* tag/badge berlatar aqua: teks harus gelap */
+:root[data-theme="dark"] .badge-budaya,
+:root[data-theme="dark"] .badge-kategori,
+:root[data-theme="dark"] .badge-berita,
+:root[data-theme="dark"] .card-category-tag.tag-budaya { color: #29212B; border-color: transparent; }
+
+:root[data-theme="dark"] .hero-badge-top { background: var(--glass-bg-kuat); }
+:root[data-theme="dark"] .upload-dropzone { background: rgba(248, 232, 208, 0.04); }
+:root[data-theme="dark"] .upload-dropzone:hover,
+:root[data-theme="dark"] .upload-dropzone.dragover { background: rgba(244, 197, 213, 0.12); }
+:root[data-theme="dark"] .floating-icon { background-color: rgba(244, 197, 213, 0.16); }
+:root[data-theme="dark"] .skip-link { color: #29212B; background: #F4C5D5; }
+:root[data-theme="dark"] .not-logged-banner { background: rgba(255, 116, 107, 0.22); color: #F4C5D5; border-color: transparent; }
+
+/* form & komponen Bootstrap */
+:root[data-theme="dark"] .form-control,
+:root[data-theme="dark"] .form-select {
+    background-color: var(--field-bg); color: var(--text-dark);
+    border-color: transparent;
+}
+:root[data-theme="dark"] .form-control::placeholder { color: var(--text-muted); opacity: 0.85; }
+:root[data-theme="dark"] .form-control:focus,
+:root[data-theme="dark"] .form-select:focus { background-color: var(--field-bg); color: var(--text-dark); }
+:root[data-theme="dark"] .input-group-text { background-color: var(--field-bg); color: var(--color-accent); border-color: transparent; }
+:root[data-theme="dark"] .modal-content { --bs-modal-bg: var(--color-white); --bs-modal-color: var(--text-dark); --bs-modal-header-border-color: transparent; --bs-modal-footer-border-color: transparent; }
+:root[data-theme="dark"] .dropdown-menu { --bs-dropdown-bg: var(--color-white); --bs-dropdown-link-color: var(--text-dark); --bs-dropdown-link-hover-bg: rgba(248, 232, 208, 0.07); }
+:root[data-theme="dark"] .card { --bs-card-bg: var(--color-white); --bs-card-color: var(--text-dark); }
+:root[data-theme="dark"] .btn-close { filter: invert(1) grayscale(1) brightness(2); }
+
+/* foto: redupkan sedikit */
+:root[data-theme="dark"] .discovery-img-wrapper img,
+:root[data-theme="dark"] .dest-image-wrapper img,
+:root[data-theme="dark"] .editorial-img,
+:root[data-theme="dark"] .ornate-frame-banner img,
+:root[data-theme="dark"] .ornate-frame-circle img { filter: brightness(0.9); }
+
+/* kartu editorial beranda: di tema gelap semua pakai scrim gelap + tombol kaca putih */
+:root[data-theme="dark"] .tema-terang { --scrim-lembut: rgba(3, 10, 13, 0.22); --scrim-kuat: rgba(3, 10, 13, 0.66); }
+:root[data-theme="dark"] .featured-block.latar-aktif.tema-terang .btn-aceh-glass {
+    --glass-bg: rgba(248, 232, 208, 0.16); --glass-bd: rgba(248, 232, 208, 0.5); --glass-fg: #FFFFFF;
+}
+
+/* bintang: kontur tipis hanya dibutuhkan di latar terang */
+:root[data-theme="dark"] .fa-star { filter: none; }
+
+/* tombol aksen: warna 'wipe' saat hover */
+:root[data-theme="dark"] .btn-aceh-accent { --wipe: #F8E8D0; --wipe-fg: #29212B; }
