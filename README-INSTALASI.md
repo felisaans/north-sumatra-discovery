@@ -23,7 +23,7 @@ Catatan:
 # North Sumatra Discovery — Panduan Instalasi
 
 Portal kuliner, budaya & tradisi Sumatera Utara.
-Demo online: (belum ada)
+Demo online: https://north-sumatra-discovery.site.je/
 
 ## Isi paket
 
