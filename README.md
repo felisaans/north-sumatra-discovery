@@ -45,4 +45,4 @@ Catatan identitas dan perubahan desain: [`CATATAN-IDENTITAS.md`](CATATAN-IDENTIT
 File `.env` (berisi sandi database dan kunci aplikasi) **tidak** ikut di repositori. Jangan pernah meng-commit file itu.
 
 ## Pembuat
-Isi nama kamu / nama tim di sini.
+Bit2Bit
