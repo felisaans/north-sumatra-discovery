@@ -23,7 +23,7 @@ Catatan:
 # North Sumatra Discovery — Panduan Instalasi
 
 Portal kuliner, budaya & tradisi Sumatera Utara.
-Demo online: https://north-sumatra-discovery.site.je/
+Demo online: (belum ada)
 
 ## Isi paket
 
@@ -88,8 +88,8 @@ Catatan: cara ini tidak membawa ulasan, favorit, atau pengalaman yang dibuat pen
 
 | Peran | Email | Sandi |
 |---|---|---|
-| Admin (`/admin`) | admin@nsdiscovery.test | admin1234 |
-| Pengguna | user@nsdiscovery.test | user1234 |
+| Admin (`/admin`) | GANTI DI SINI | GANTI DI SINI |
+| Pengguna | GANTI DI SINI | GANTI DI SINI |
 
 ## Struktur singkat
 
